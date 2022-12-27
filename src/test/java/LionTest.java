@@ -7,26 +7,15 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
 
-    @Mock
     private Feline feline;
 
     @Mock
     private Animal animal;
-
-    @Test
-    public void getKittensTest() {
-        Lion lion = new Lion(feline);
-        int expectedKittensCount = 1;
-        Mockito.when(feline.getKittens()).thenReturn(1);
-        int actualKittensCount = lion.getKittens();
-        Assert.assertEquals(expectedKittensCount, actualKittensCount);
-    }
 
     @Test
     public void getFoodTest() throws Exception {
@@ -39,16 +28,14 @@ public class LionTest {
 
     @Test
     public void LionExceptionTest() throws Exception {
-        Lion lion = null;
         String actualException = null;
-
         try {
-            lion = new Lion("Неизвестно");
+            Lion lion = new Lion("Неизвестный пол", feline);
         } catch (Exception exception) {
-            actualException = exception.toString();
+            actualException = exception.getMessage();
         }
-
-        String expectedException = "java.lang.Exception: Используйте допустимые значения пола животного - самец или самка";
+        String expectedException = "Используйте допустимые значения пола животного - самец или самка";
         Assert.assertEquals(expectedException, actualException);
     }
+
 }
